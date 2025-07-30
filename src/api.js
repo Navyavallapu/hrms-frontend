@@ -1,4 +1,5 @@
-const BASE_URL = "https://interviewbackend-1.onrender.com";
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
 export const API = {
   assignInterview: `${BASE_URL}/api/assign`,
