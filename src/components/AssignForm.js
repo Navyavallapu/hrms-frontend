@@ -6,8 +6,7 @@ const AssignForm = () => {
   const [formData, setFormData] = useState({
     candidate_name: "",
     interviewer_name: "",
-    date: "",
-    time: "",
+    
   });
 
   const handleChange = (e) => {

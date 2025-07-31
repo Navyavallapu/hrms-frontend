@@ -23,7 +23,7 @@ const ScheduleForm = () => {
       await axios.post(API.postSchedule, formData);
 
       alert("Interview scheduled successfully!");
-      setFormData({ candidate_name: "", role: "", date: "", time: "" });
+      setFormData({ candidate_name: "", role: "", date: "", time: "",status:"Completed" });
     } catch (error) {
       console.error("Error scheduling interview:", error);
       alert("Scheduling failed.");
