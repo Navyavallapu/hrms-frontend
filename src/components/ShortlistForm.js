@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const ShortlistActions = () => {
+const ShortlistForm = () => {
   const [formData, setFormData] = useState({
     candidate_name: "",
     status: "shortlisted",
@@ -63,4 +63,4 @@ const ShortlistActions = () => {
   );
 };
 
-export default ShortlistActions;
+export default ShortlistForm;

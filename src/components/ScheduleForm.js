@@ -7,6 +7,7 @@ const ScheduleForm = () => {
     role: "",
     date: "",
     time: "",
+    status:"Completed"
   });
 
   const handleChange = (e) => {

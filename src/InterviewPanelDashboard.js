@@ -9,7 +9,7 @@ const InterviewPanelDashboard = () => {
   const menuRef = useRef(null);
 
   // Form States
-  const [scheduleForm, setScheduleForm] = useState({ name: '', role: '', date: '', time: '' });
+  const [scheduleForm, setScheduleForm] = useState({ name: '', role: '', date: '', time: '',status:'Completed' });
   const [assignForm, setAssignForm] = useState({ candidate: '', interviewer: '' });
   const [feedbackForm, setFeedbackForm] = useState({ candidate: '', interviewer: '', comments: '' });
   const [shortlistForm, setShortlistForm] = useState({ candidate: '', status: 'Shortlisted' });

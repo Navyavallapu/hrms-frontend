@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { API } from "../api";
 
-const AssignInterview = () => {
+const AssignForm = () => {
   const [formData, setFormData] = useState({
     candidate_name: "",
     interviewer_name: "",
@@ -26,8 +26,7 @@ const AssignInterview = () => {
       setFormData({
         candidate_name: "",
         interviewer_name: "",
-        date: "",
-        time: "",
+       
       });
     } catch (error) {
       console.error("Error assigning interview:", error);
@@ -83,4 +82,4 @@ const AssignInterview = () => {
   );
 };
 
-export default AssignInterview;
+export default AssignForm;

@@ -73,4 +73,4 @@ const FeedbackForm = () => {
   );
 };
 
-expor
+export default FeedbackForm;
