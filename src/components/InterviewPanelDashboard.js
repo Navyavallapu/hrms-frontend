@@ -1,11 +1,11 @@
 // InterviewPanelDashboard.js
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, Moon, Sun } from 'lucide-react';
-import logo from './assets/logo.png';
-import AssignForm from "./components/AssignForm";
-import ScheduleForm from './components/ScheduleForm';
-import FeedbackForm from './components/FeedbackForm';
-import ShortlistForm from './components/ShortlistForm';
+import logo from '../assets/logo.png'; // corrected path
+import AssignForm from "./AssignForm";
+import ScheduleForm from './ScheduleForm';
+import FeedbackForm from './FeedbackForm';
+import ShortlistForm from './ShortlistForm';
 
 const InterviewPanelDashboard = () => {
   const [menuOpen, setMenuOpen] = useState(false);
