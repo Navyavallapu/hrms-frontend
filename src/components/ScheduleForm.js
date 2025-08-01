@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { API } from "../api";
-const ScheduleForm = () => {
+
+const ScheduleForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
     candidate_name: "",
     role: "",
     date: "",
     time: "",
-    status:"Completed"
+    status: "pending"
   });
 
   const handleChange = (e) => {
-    setFormData({ 
-      ...formData, 
-      [e.target.name]: e.target.value 
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -21,9 +22,15 @@ const ScheduleForm = () => {
     e.preventDefault();
     try {
       await axios.post(API.postSchedule, formData);
-
       alert("Interview scheduled successfully!");
-      setFormData({ candidate_name: "", role: "", date: "", time: "",status:"Completed" });
+      setFormData({
+        candidate_name: "",
+        role: "",
+        date: "",
+        time: "",
+        status: "pending"
+      });
+      onSuccess?.(); // call fetchDashboardData
     } catch (error) {
       console.error("Error scheduling interview:", error);
       alert("Scheduling failed.");
@@ -31,8 +38,8 @@ const ScheduleForm = () => {
   };
 
   return (
-    <form 
-      onSubmit={handleSubmit} 
+    <form
+      onSubmit={handleSubmit}
       className="bg-white p-4 rounded shadow space-y-4 max-w-md mx-auto"
     >
       <input
@@ -69,6 +76,15 @@ const ScheduleForm = () => {
         className="w-full border px-3 py-2 rounded"
         required
       />
+      <select
+        name="status"
+        value={formData.status}
+        onChange={handleChange}
+        className="w-full border rounded-md p-2 mb-4 dark:bg-gray-700 dark:text-white"
+      >
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+      </select>
       <button
         type="submit"
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"

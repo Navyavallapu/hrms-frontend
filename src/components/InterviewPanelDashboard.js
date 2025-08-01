@@ -1,17 +1,27 @@
 // InterviewPanelDashboard.js
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, Moon, Sun } from 'lucide-react';
-import logo from '../assets/logo.png'; // corrected path
+import logo from '../assets/logo.png';
 import AssignForm from "./AssignForm";
 import ScheduleForm from './ScheduleForm';
 import FeedbackForm from './FeedbackForm';
 import ShortlistForm from './ShortlistForm';
+import Dashboard from './Dashboard';
+import { API } from '../api';
+import axios from 'axios';
 
 const InterviewPanelDashboard = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const menuRef = useRef(null);
+
+  const [counts, setCounts] = useState({
+    total: 0,
+    completed: 0,
+    pending: 0,
+    shortlisted: 0,
+  });
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -22,6 +32,34 @@ const InterviewPanelDashboard = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (activeTab === 'dashboard') {
+      fetchDashboardData();
+    }
+  }, [activeTab]);
+
+  const fetchDashboardData = async () => {
+    try {
+      const scheduleRes = await axios.get(API.getSchedules);
+      const shortlistRes = await axios.get(API.getShortlist);
+
+      const schedules = scheduleRes.data || [];
+      const shortlistedList = shortlistRes.data || [];
+
+      const total = schedules.length;
+      const completed = schedules.filter(s => s.status?.toLowerCase() === 'completed').length;
+      const pending = schedules.filter(s => s.status?.toLowerCase() === 'pending').length;
+
+      const shortlisted = shortlistedList.filter(
+        item => item.status?.toLowerCase() === 'shortlisted'
+      ).length;
+
+      setCounts({ total, completed, pending, shortlisted });
+    } catch (err) {
+      console.error("Failed to fetch dashboard data:", err);
+    }
+  };
 
   const tabClass = (tabName) =>
     `px-6 md:px-20 py-3 rounded-md transition ${
@@ -80,28 +118,6 @@ const InterviewPanelDashboard = () => {
           </div>
         </nav>
 
-        {/* DASHBOARD */}
-        {activeTab === 'dashboard' && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg text-blue-900 dark:text-blue-200">
-              <p>Total Interviews</p>
-              <h2 className="text-2xl font-bold">0</h2>
-            </div>
-            <div className="bg-green-100 dark:bg-green-900 p-4 rounded-lg text-green-800 dark:text-green-200">
-              <p>Completed</p>
-              <h2 className="text-2xl font-bold">0</h2>
-            </div>
-            <div className="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-lg text-yellow-800 dark:text-yellow-200">
-              <p>Pending</p>
-              <h2 className="text-2xl font-bold">0</h2>
-            </div>
-            <div className="bg-purple-100 dark:bg-purple-900 p-4 rounded-lg text-purple-800 dark:text-purple-200">
-              <p>Shortlisted</p>
-              <h2 className="text-2xl font-bold">0</h2>
-            </div>
-          </div>
-        )}
-
         {/* Watermark */}
         <img
           src={require('../assets/logo.png')}
@@ -110,11 +126,13 @@ const InterviewPanelDashboard = () => {
           style={{ filter: 'grayscale(10%)' }}
         />
 
-        {/* FORMS */}
-        {activeTab === 'schedule' && <ScheduleForm />}
-        {activeTab === 'assign' && <AssignForm />}
-        {activeTab === 'feedback' && <FeedbackForm />}
-        {activeTab === 'shortlist' && <ShortlistForm />}
+        {/* Forms */}
+        {activeTab === 'dashboard' && <Dashboard stats={counts} />}
+        {activeTab === 'schedule' && <ScheduleForm onSuccess={fetchDashboardData} />}
+        {activeTab === 'assign' && <AssignForm onSuccess={fetchDashboardData} />}
+        {activeTab === 'feedback' && <FeedbackForm onSuccess={fetchDashboardData} />}
+        {activeTab === 'shortlist' && <ShortlistForm onSuccess={fetchDashboardData} />}
+
       </div>
     </div>
   );

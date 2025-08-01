@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { API } from "../api";
-const FeedbackForm = () => {
+
+const FeedbackForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
     candidate_name: "",
-    interviewer: "",
-    feedback: "",
+    feedback: ""
   });
 
   const handleChange = (e) => {
-    setFormData({ 
-      ...formData, 
-      [e.target.name]: e.target.value 
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -19,57 +19,41 @@ const FeedbackForm = () => {
     e.preventDefault();
     try {
       await axios.post(API.submitFeedback, formData);
-
       alert("Feedback submitted successfully!");
-      setFormData({
-        candidate_name: "",
-        interviewer: "",
-        feedback: "",
-      });
+      setFormData({ candidate_name: "", feedback: "" });
+      onSuccess?.(); // Optional: Refresh dashboard if feedback affects it
     } catch (error) {
       console.error("Error submitting feedback:", error);
-      alert("Failed to submit feedback.");
+      alert("Feedback submission failed.");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow mt-8">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="candidate_name"
-          placeholder="Candidate Name"
-          value={formData.candidate_name}
-          onChange={handleChange}
-          className="w-full border border-gray-300 p-2 rounded"
-          required
-        />
-        <input
-          type="text"
-          name="interviewer"
-          placeholder="Interviewer Name"
-          value={formData.interviewer}
-          onChange={handleChange}
-          className="w-full border border-gray-300 p-2 rounded"
-          required
-        />
-        <textarea
-          name="feedback"
-          placeholder="Write feedback here..."
-          value={formData.feedback}
-          onChange={handleChange}
-          className="w-full border border-gray-300 p-2 rounded"
-          rows={4}
-          required
-        />
-        <button
-          type="submit"
-          className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-        >
-          Submit Feedback
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow space-y-4 max-w-md mx-auto">
+      <input
+        type="text"
+        name="candidate_name"
+        placeholder="Candidate Name"
+        value={formData.candidate_name}
+        onChange={handleChange}
+        className="w-full border px-3 py-2 rounded"
+        required
+      />
+      <textarea
+        name="feedback"
+        placeholder="Feedback"
+        value={formData.feedback}
+        onChange={handleChange}
+        className="w-full border px-3 py-2 rounded"
+        required
+      />
+      <button
+        type="submit"
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+      >
+        Submit Feedback
+      </button>
+    </form>
   );
 };
 
