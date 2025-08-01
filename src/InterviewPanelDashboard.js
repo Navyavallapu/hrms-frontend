@@ -1,18 +1,17 @@
+// InterviewPanelDashboard.js
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, Moon, Sun } from 'lucide-react';
 import logo from './assets/logo.png';
+import AssignForm from './AssignForm';
+import ScheduleForm from './ScheduleForm';
+import FeedbackForm from './FeedbackForm';
+import ShortlistForm from './ShortlistForm';
 
 const InterviewPanelDashboard = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const menuRef = useRef(null);
-
-  // Form States
-  const [scheduleForm, setScheduleForm] = useState({ name: '', role: '', date: '', time: '',status:'Completed' });
-  const [assignForm, setAssignForm] = useState({ candidate: '', interviewer: '' });
-  const [feedbackForm, setFeedbackForm] = useState({ candidate: '', interviewer: '', comments: '' });
-  const [shortlistForm, setShortlistForm] = useState({ candidate: '', status: 'Shortlisted' });
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -103,63 +102,19 @@ const InterviewPanelDashboard = () => {
           </div>
         )}
 
-          {/* Watermark */}
-            <img
-              src={require('./assets/logo.png')}
-              alt="Watermark"
-              className="absolute opacity-20 w-1/2 mx-auto left-0 right-0 top-1/2 -translate-y-1/2 z-0 pointer-events-none"
-              style={{ filter: 'grayscale(10%)' }}
-            />
+        {/* Watermark */}
+        <img
+          src={require('./assets/logo.png')}
+          alt="Watermark"
+          className="absolute opacity-20 w-1/2 mx-auto left-0 right-0 top-1/2 -translate-y-1/2 z-0 pointer-events-none"
+          style={{ filter: 'grayscale(10%)' }}
+        />
 
-        {/* SCHEDULE */}
-        {activeTab === 'schedule' && (
-          <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md max-w-md mx-auto">
-            <h2 className="text-xl font-bold mb-4">Schedule Interview</h2>
-            <input type="text" placeholder="Candidate Name" value={scheduleForm.name} onChange={(e) => setScheduleForm({ ...scheduleForm, name: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <input type="text" placeholder="Role" value={scheduleForm.role} onChange={(e) => setScheduleForm({ ...scheduleForm, role: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <input type="date" value={scheduleForm.date} onChange={(e) => setScheduleForm({ ...scheduleForm, date: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <input type="time" value={scheduleForm.time} onChange={(e) => setScheduleForm({ ...scheduleForm, time: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <select value={scheduleForm.status} onChange={(e) => setScheduleForm({ ...scheduleForm, status: e.target.value })} className="w-full mb-3 p-2 rounded border">
-              <option>Completed</option>
-              <option>Pending</option>
-            </select>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Schedule Interview</button>
-          </div>
-        )}
-
-        {/* ASSIGN */}
-        {activeTab === 'assign' && (
-          <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md max-w-md mx-auto">
-            <h2 className="text-xl font-bold mb-4">Assign Interviewer</h2>
-            <input type="text" placeholder="Candidate Name" value={assignForm.candidate} onChange={(e) => setAssignForm({ ...assignForm, candidate: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <input type="text" placeholder="Interviewer Name" value={assignForm.interviewer} onChange={(e) => setAssignForm({ ...assignForm, interviewer: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Assign</button>
-          </div>
-        )}
-
-        {/* FEEDBACK */}
-        {activeTab === 'feedback' && (
-          <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md max-w-md mx-auto">
-            <h2 className="text-xl font-bold mb-4">Submit Feedback</h2>
-            <input type="text" placeholder="Candidate Name" value={feedbackForm.candidate} onChange={(e) => setFeedbackForm({ ...feedbackForm, candidate: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <input type="text" placeholder="Interviewer Name" value={feedbackForm.interviewer} onChange={(e) => setFeedbackForm({ ...feedbackForm, interviewer: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <textarea placeholder="Enter feedback..." value={feedbackForm.comments} onChange={(e) => setFeedbackForm({ ...feedbackForm, comments: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Submit Feedback</button>
-          </div>
-        )}
-
-        {/* SHORTLIST */}
-        {activeTab === 'shortlist' && (
-          <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md max-w-md mx-auto">
-            <h2 className="text-xl font-bold mb-4">Update Candidate Status</h2>
-            <input type="text" placeholder="Candidate Name" value={shortlistForm.candidate} onChange={(e) => setShortlistForm({ ...shortlistForm, candidate: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <select value={shortlistForm.status} onChange={(e) => setShortlistForm({ ...shortlistForm, status: e.target.value })} className="w-full mb-3 p-2 rounded border">
-              <option>Shortlisted</option>
-              <option>Rejected</option>
-            </select>
-            <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Submit</button>
-          </div>
-        )}
+        {/* FORMS */}
+        {activeTab === 'schedule' && <ScheduleForm />}
+        {activeTab === 'assign' && <AssignForm />}
+        {activeTab === 'feedback' && <FeedbackForm />}
+        {activeTab === 'shortlist' && <ShortlistForm />}
       </div>
     </div>
   );
