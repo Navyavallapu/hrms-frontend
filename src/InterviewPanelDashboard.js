@@ -133,7 +133,7 @@ const InterviewPanelDashboard = () => {
             <h2 className="text-xl font-bold mb-4">Assign Interviewer</h2>
             <input type="text" placeholder="Candidate Name" value={assignForm.candidate} onChange={(e) => setAssignForm({ ...assignForm, candidate: e.target.value })} className="w-full mb-3 p-2 rounded border" />
             <input type="text" placeholder="Interviewer Name" value={assignForm.interviewer} onChange={(e) => setAssignForm({ ...assignForm, interviewer: e.target.value })} className="w-full mb-3 p-2 rounded border" />
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Assign</button>
+            <button onClick={handleSubmit} className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Assign</button>
           </div>
         )}
 
