@@ -1,12 +1,12 @@
-import React from 'react';
-import InterviewPanelDashboard from './components/InterviewPanelDashboard';
+import React from "react";
+import InterviewPanelDashboard from "./InterviewPanelDashboard";
 
-function App() {
+const App = () => {
   return (
-    <div>
+    <div className="min-h-screen">
       <InterviewPanelDashboard />
     </div>
   );
-}
+};
 
 export default App;

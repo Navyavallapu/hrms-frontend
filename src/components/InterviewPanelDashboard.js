@@ -104,7 +104,7 @@ const InterviewPanelDashboard = () => {
 
         {/* Watermark */}
         <img
-          src={require('./assets/logo.png')}
+          src={require('../assets/logo.png')}
           alt="Watermark"
           className="absolute opacity-20 w-1/2 mx-auto left-0 right-0 top-1/2 -translate-y-1/2 z-0 pointer-events-none"
           style={{ filter: 'grayscale(10%)' }}
