@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API } from "../api";
 
 const ShortlistForm = () => {
   const [formData, setFormData] = useState({
@@ -16,9 +17,13 @@ const ShortlistForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    console.log("📤 Sending data to API:", API.submitShortlist);
+    console.log("📦 Payload:", formData);
+
     try {
-      await axios.post(API.submitShortlist, formData);
+      const response = await axios.post(API.submitShortlist, formData);
+      console.log("✅ Response:", response.data);
 
       alert("Shortlist submitted successfully!");
       setFormData({
@@ -26,7 +31,7 @@ const ShortlistForm = () => {
         status: "shortlisted",
       });
     } catch (error) {
-      console.error("Error:", error);
+      console.error("❌ Submission failed:", error.response?.data || error.message);
       alert("Submission failed.");
     }
   };

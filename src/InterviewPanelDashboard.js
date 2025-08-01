@@ -121,7 +121,7 @@ const InterviewPanelDashboard = () => {
             <input type="time" value={scheduleForm.time} onChange={(e) => setScheduleForm({ ...scheduleForm, time: e.target.value })} className="w-full mb-3 p-2 rounded border" />
             <select value={scheduleForm.status} onChange={(e) => setScheduleForm({ ...scheduleForm, status: e.target.value })} className="w-full mb-3 p-2 rounded border">
               <option>Completed</option>
-              <option>Penidng</option>
+              <option>Pending</option>
             </select>
             <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Schedule Interview</button>
           </div>
