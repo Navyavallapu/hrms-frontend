@@ -8,7 +8,7 @@ const ScheduleForm = ({ onSuccess }) => {
     role: "",
     date: "",
     time: "",
-    status: "pending"
+    status: "completed"
   });
 
   const handleChange = (e) => {
@@ -28,7 +28,7 @@ const ScheduleForm = ({ onSuccess }) => {
         role: "",
         date: "",
         time: "",
-        status: "pending"
+        status: "completed"
       });
       onSuccess?.(); // call fetchDashboardData
     } catch (error) {
