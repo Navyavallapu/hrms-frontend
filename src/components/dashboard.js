@@ -15,7 +15,7 @@ const Dashboard = ({ stats = {} }) => {
         <p>Total Interviews</p>
         <h2 className="text-2xl font-bold">{total}</h2>
       </div>
-      {/* <div className="bg-green-100 p-4 rounded-lg text-green-800">
+      { /*<div className="bg-green-100 p-4 rounded-lg text-green-800">
         <p>Completed</p>
         <h2 className="text-2xl font-bold">{completed}</h2>
       </div>
